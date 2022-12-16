@@ -19,7 +19,7 @@ export default async function handler(
     model: "text-davinci-003",
     prompt: generatePrompt(someoneAskForSomething),
     max_tokens: 100,
-    temperature: 0.2,
+    temperature: 1,
   });
 
   res.setHeader("Cache-Control", "no-store, max-age=0");
