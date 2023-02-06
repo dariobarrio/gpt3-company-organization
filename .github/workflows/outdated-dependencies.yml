@@ -15,6 +15,6 @@ jobs:
           yarn
       - name: Check outdated
         id: ncu-output
-        run: echo "OUTDATED_DEPENDENCIES=ncu | grep -Ev 'Run ncu -u|Using yarn|Checking /'" >> $GITHUB_OUTPUT
+        run: echo "OUTDATED_DEPENDENCIES=n(cu | grep -Ev 'Run ncu -u|Using yarn|Checking /')" >> $GITHUB_OUTPUT
       - name: Send notification
         run: echo "${{steps.ncu-output.outputs.OUTDATED_DEPENDENCIES}}
