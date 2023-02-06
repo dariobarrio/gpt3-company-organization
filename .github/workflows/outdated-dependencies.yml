@@ -14,4 +14,4 @@ jobs:
           npm i --global yarn npm-check-updates
           yarn
       - name: Check outdated
-        run: npm-check-updates
+        run: ncu | grep -Ev 'Run ncu -u|Using yarn|Checking /'
