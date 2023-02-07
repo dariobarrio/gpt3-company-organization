@@ -30,10 +30,8 @@ jobs:
         env:
           SLACK_CHANNEL: test-channel
           SLACK_COLOR: ${{ job.status }} # or a specific color like 'good' or '#ff00ff'
-          SLACK_ICON: https://github.com/rtCamp.png?size=48
           SLACK_TITLE: "Repository: ${{ github.event.repository.name }}"
-          SLACK_MESSAGE: "Outdated dependencies: *${{ steps.ncu-output.outputs.OUTDATED_DEPENDENCIES_NUMBER }}* \n ${{ steps.ncu-output.outputs.OUTDATED_DEPENDENCIES }}"
-          SLACK_USERNAME: ''
+          SLACK_MESSAGE: "Outdated dependencies: *${{ steps.ncu-output.outputs.OUTDATED_DEPENDENCIES_NUMBER }}* \n ${{ steps.ncu-output.outputs.OUTDATED_DEPENDENCIES }} \n\n"
           MSG_MINIMAL: true
           SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
           SLACK_FOOTER: 'Powered by <https://theknotww.atlassian.net/wiki/spaces/PZ/pages/3697344976/Platform+Frontend|Platform Frontend> team <https://www.youtube.com/watch?v=dQw4w9WgXcQ|:heart:>'
