@@ -19,6 +19,10 @@ jobs:
           echo 'OUTDATED_DEPENDENCIES<<EOF' >> $GITHUB_OUTPUT
           ncu | grep -Ev "Run ncu -u|Using yarn|Checking /" >> $GITHUB_OUTPUT
           echo 'EOF' >> $GITHUB_OUTPUT
+          echo 'OUTDATED_DEPENDENCIES_NUMBER<<EOF' >> $GITHUB_OUTPUT
+          ncu | grep -Ev "Run ncu -u|Using yarn|Checking /" | wc -l | awk '{print $0-2}'>> $GITHUB_OUTPUT
+          echo 'EOF' >> $GITHUB_OUTPUT
+
       - name: Send notification
         uses: rtCamp/action-slack-notify@v2
         env:
@@ -26,7 +30,7 @@ jobs:
           SLACK_COLOR: ${{ job.status }} # or a specific color like 'good' or '#ff00ff'
           SLACK_ICON: https://github.com/rtCamp.png?size=48
           SLACK_TITLE: "Repository: ${{ github.event.repository.name }}"
-          SLACK_MESSAGE: "\n \n${{ steps.ncu-output.outputs.OUTDATED_DEPENDENCIES }}"
+          SLACK_MESSAGE: "\n \nOutdated dependencies: ${{ steps.ncu-output.outputs.OUTDATED_DEPENDENCIES_NUMBER }} \n ${{ steps.ncu-output.outputs.OUTDATED_DEPENDENCIES }}"
           SLACK_USERNAME: ''
           MSG_MINIMAL: true
           SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
