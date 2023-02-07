@@ -36,4 +36,4 @@ jobs:
           SLACK_USERNAME: ''
           MSG_MINIMAL: true
           SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
-          SLACK_FOOTER: 'Powered by <https://theknotww.atlassian.net/wiki/spaces/PZ/pages/3697344976/Platform+Frontend|Platform Frontend> team <https://www.youtube.com/watch?v=dQw4w9WgXcQ|:heart:'>
+          SLACK_FOOTER: 'Powered by <https://theknotww.atlassian.net/wiki/spaces/PZ/pages/3697344976/Platform+Frontend|Platform Frontend> team <https://www.youtube.com/watch?v=dQw4w9WgXcQ|:heart:>'
