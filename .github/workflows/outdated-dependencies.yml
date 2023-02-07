@@ -22,7 +22,7 @@ jobs:
           ncu | grep -Ev "Run ncu -u|Using yarn|Checking /" >> $GITHUB_OUTPUT
           echo 'EOF' >> $GITHUB_OUTPUT
           echo 'OUTDATED_DEPENDENCIES_NUMBER<<EOF' >> $GITHUB_OUTPUT
-          ncu | grep -Ev "Run ncu -u|Using yarn|Checking /" | wc -l | awk '{print $0-2}'>> $GITHUB_OUTPUT
+          ${{ steps.ncu-output.outputs.OUTDATED_DEPENDENCIES }} | wc -l | awk '{print $0-2}'>> $GITHUB_OUTPUT
           echo 'EOF' >> $GITHUB_OUTPUT
 
       - name: Send notification
