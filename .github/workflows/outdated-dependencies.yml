@@ -26,9 +26,8 @@ jobs:
         id: ncu-output-packages-number
         run: |
           echo 'OUTDATED_DEPENDENCIES_NUMBER<<EOF' >> $GITHUB_OUTPUT
-          echo ${{ steps.ncu-output-packages.outputs.OUTDATED_DEPENDENCIES_NUMBER }} | wc -l | awk '{print $0-2}'>> $GITHUB_OUTPUT
+          echo ${{ steps.ncu-output-packages.outputs.OUTDATED_DEPENDENCIES }} | wc -l | awk '{print $0-2}'>> $GITHUB_OUTPUT
           echo 'EOF' >> $GITHUB_OUTPUT
-
 
       - name: Conditional color
         id: ncu-output-color
