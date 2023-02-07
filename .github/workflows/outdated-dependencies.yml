@@ -20,4 +20,12 @@ jobs:
           ncu | grep -Ev "Run ncu -u|Using yarn|Checking /" >> $GITHUB_OUTPUT
           echo 'EOF' >> $GITHUB_OUTPUT
       - name: Send notification
-        run: echo "${{steps.ncu-output.outputs.OUTDATED_DEPENDENCIES}}"
+        uses: rtCamp/action-slack-notify@v2
+        env:
+          SLACK_CHANNEL: test-channel
+          SLACK_COLOR: ${{ job.status }} # or a specific color like 'good' or '#ff00ff'
+          SLACK_ICON: https://github.com/rtCamp.png?size=48
+          SLACK_MESSAGE: ${{steps.ncu-output.outputs.OUTDATED_DEPENDENCIES}}
+          SLACK_TITLE: Post Title
+          SLACK_USERNAME: rtCamp
+          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
