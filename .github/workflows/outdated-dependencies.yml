@@ -16,19 +16,19 @@ jobs:
           yarn
 
       - name: Check outdated
-        id: ncu-output
+        id: ncu-output-packages
         run: |
           echo 'OUTDATED_DEPENDENCIES<<EOF' >> $GITHUB_OUTPUT
           ncu | grep -Ev "Run ncu -u|Using yarn|Checking /" >> $GITHUB_OUTPUT
           echo 'EOF' >> $GITHUB_OUTPUT
-          echo 'OUTDATED_DEPENDENCIES_NUMBER<<EOF' >> $GITHUB_OUTPUT
-          ncu | grep -Ev "Run ncu -u|Using yarn|Checking /" | wc -l | awk '{print $0-2}'>> $GITHUB_OUTPUT
-          echo 'EOF' >> $GITHUB_OUTPUT
 
       - name: Conditional color
-        id: ncu-output-color
+        id: ncu-output-packages-number
         run: |
-          echo 'hola: ${{ steps.ncu-output.outputs.OUTDATED_DEPENDENCIES_NUMBER }}'
+          echo 'OUTDATED_DEPENDENCIES_NUMBER<<EOF' >> $GITHUB_OUTPUT
+          echo ${{ steps.ncu-output-packages.outputs.OUTDATED_DEPENDENCIES_NUMBER }} | wc -l | awk '{print $0-2}'>> $GITHUB_OUTPUT
+          echo 'EOF' >> $GITHUB_OUTPUT
+          echo 'hola: ${{ steps.ncu-output-packages-number.outputs.OUTDATED_DEPENDENCIES_NUMBER }}'
 
       - name: Send notification
         uses: rtCamp/action-slack-notify@v2
@@ -37,7 +37,7 @@ jobs:
           SLACK_COLOR: ${{ job.status }} # or a specific color like 'good' or '#ff00ff'
           SLACK_MSG_AUTHOR: ' '
           SLACK_TITLE: "Repository: ${{ github.event.repository.name }}"
-          SLACK_MESSAGE: "Outdated dependencies: *${{ steps.ncu-output.outputs.OUTDATED_DEPENDENCIES_NUMBER }}* \n ${{ steps.ncu-output.outputs.OUTDATED_DEPENDENCIES }} \n\n"
+          SLACK_MESSAGE: "Outdated dependencies: *${{ steps.ncu-output-packages-number.outputs.OUTDATED_DEPENDENCIES_NUMBER }}* \n ${{ steps.ncu-output-packages.outputs.OUTDATED_DEPENDENCIES }} \n\n"
           MSG_MINIMAL: true
           SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
           SLACK_FOOTER: 'Powered by <https://theknotww.atlassian.net/wiki/spaces/PZ/pages/3697344976/Platform+Frontend|Platform Frontend> team with <https://www.youtube.com/watch?v=dQw4w9WgXcQ|:heart:>'
