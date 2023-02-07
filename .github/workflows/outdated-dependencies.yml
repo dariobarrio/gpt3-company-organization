@@ -30,3 +30,4 @@ jobs:
           SLACK_USERNAME: ''
           MSG_MINIMAL: true
           SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
+          SLACK_FOOTER: ''
