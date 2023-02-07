@@ -9,10 +9,12 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
+
       - name: Install dependencies
         run: | 
           npm i --global yarn npm-check-updates
           yarn
+
       - name: Check outdated
         id: ncu-output
         run: |
@@ -30,7 +32,7 @@ jobs:
           SLACK_COLOR: ${{ job.status }} # or a specific color like 'good' or '#ff00ff'
           SLACK_ICON: https://github.com/rtCamp.png?size=48
           SLACK_TITLE: "Repository: ${{ github.event.repository.name }}"
-          SLACK_MESSAGE: "\n \nOutdated dependencies: ${{ steps.ncu-output.outputs.OUTDATED_DEPENDENCIES_NUMBER }} \n ${{ steps.ncu-output.outputs.OUTDATED_DEPENDENCIES }}"
+          SLACK_MESSAGE: "&nbsp;\nOutdated dependencies: ${{ steps.ncu-output.outputs.OUTDATED_DEPENDENCIES_NUMBER }} \n ${{ steps.ncu-output.outputs.OUTDATED_DEPENDENCIES }}"
           SLACK_USERNAME: ''
           MSG_MINIMAL: true
           SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
