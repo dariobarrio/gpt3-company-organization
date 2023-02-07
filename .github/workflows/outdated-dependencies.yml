@@ -30,7 +30,7 @@ jobs:
         env:
           SLACK_CHANNEL: test-channel
           SLACK_COLOR: ${{ job.status }} # or a specific color like 'good' or '#ff00ff'
-          SLACK_USERNAME: outdated_dependencies
+          SLACK_MSG_AUTHOR: ' '
           SLACK_TITLE: "Repository: ${{ github.event.repository.name }}"
           SLACK_MESSAGE: "Outdated dependencies: *${{ steps.ncu-output.outputs.OUTDATED_DEPENDENCIES_NUMBER }}* \n ${{ steps.ncu-output.outputs.OUTDATED_DEPENDENCIES }} \n\n"
           MSG_MINIMAL: true
