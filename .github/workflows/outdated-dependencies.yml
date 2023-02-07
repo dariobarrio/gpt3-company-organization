@@ -2,7 +2,7 @@ name: Check Outdated Dependencies
 
 on:
   schedule:
-  - cron: "10 15 * * 2"
+    - cron: "17 15 * * 2"
 
 jobs:
   check_updates:
