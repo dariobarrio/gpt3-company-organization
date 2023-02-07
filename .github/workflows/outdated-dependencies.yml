@@ -17,7 +17,6 @@ jobs:
         id: ncu-output
         run: |
           echo 'OUTDATED_DEPENDENCIES<<EOF' >> $GITHUB_OUTPUT
-          echo "\n \n"
           ncu | grep -Ev "Run ncu -u|Using yarn|Checking /" >> $GITHUB_OUTPUT
           echo 'EOF' >> $GITHUB_OUTPUT
       - name: Send notification
@@ -27,8 +26,8 @@ jobs:
           SLACK_COLOR: ${{ job.status }} # or a specific color like 'good' or '#ff00ff'
           SLACK_ICON: https://github.com/rtCamp.png?size=48
           SLACK_TITLE: "Repository: ${{ github.event.repository.name }}"
-          SLACK_MESSAGE: ${{ steps.ncu-output.outputs.OUTDATED_DEPENDENCIES }}
+          SLACK_MESSAGE: "\n \n${{ steps.ncu-output.outputs.OUTDATED_DEPENDENCIES }}"
           SLACK_USERNAME: ''
           MSG_MINIMAL: true
           SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
-          SLACK_FOOTER: ''
+          SLACK_FOOTER: 'Powered by Platform Frontend team'
