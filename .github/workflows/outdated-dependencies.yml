@@ -33,11 +33,11 @@ jobs:
         id: ncu-output-color
         run: |
           if [[ ${{ steps.ncu-output-packages-number.outputs.OUTDATED_DEPENDENCIES_NUMBER }} -le 3 ]]; then
-            echo "{color}={2EB67D}" >> $GITHUB_OUTPUT
+            echo "color=#2EB67D" >> $GITHUB_OUTPUT
           elif [[ ${{ steps.ncu-output-packages-number.outputs.OUTDATED_DEPENDENCIES_NUMBER }} -gt 3 && ${{ steps.ncu-output-packages-number.outputs.OUTDATED_DEPENDENCIES_NUMBER }} -le 10 ]]; then
-            echo "{color}={ECB22E}" >> $GITHUB_OUTPUT
+            echo "color=#ECB22E" >> $GITHUB_OUTPUT
           else
-            echo "{color}={E01E5A}" >> $GITHUB_OUTPUT
+            echo "color=#E01E5A" >> $GITHUB_OUTPUT
           fi
       
       - name: test
@@ -48,7 +48,7 @@ jobs:
         uses: rtCamp/action-slack-notify@v2
         env:
           SLACK_CHANNEL: test-channel
-          SLACK_COLOR: \#${{ steps.ncu-output-color.outputs.color }}
+          SLACK_COLOR: ${{ steps.ncu-output-color.outputs.color }}
           SLACK_MSG_AUTHOR: ' '
           SLACK_TITLE: "Repository: ${{ github.event.repository.name }}"
           SLACK_MESSAGE: "Outdated dependencies: *${{ steps.ncu-output-packages-number.outputs.OUTDATED_DEPENDENCIES_NUMBER }}* \n ${{ steps.ncu-output-packages.outputs.OUTDATED_DEPENDENCIES }} \n\n"
