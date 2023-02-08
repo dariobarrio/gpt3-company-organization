@@ -32,12 +32,13 @@ jobs:
       - name: Conditional color
         id: ncu-output-color
         run: |
-          if [[ $(${{ steps.ncu-output-packages-number.outputs.OUTDATED_DEPENDENCIES_NUMBER }}) -le 3 ]]; then
+          if [[ ${{ steps.ncu-output-packages-number.outputs.OUTDATED_DEPENDENCIES_NUMBER }} -le 3 ]]; then
             echo "green"
-          elif [[ $(${{ steps.ncu-output-packages-number.outputs.OUTDATED_DEPENDENCIES_NUMBER }}) -gt 3 ]]; then
+          elif [[ ${{ steps.ncu-output-packages-number.outputs.OUTDATED_DEPENDENCIES_NUMBER }} -gt 3 && ${{ steps.ncu-output-packages-number.outputs.OUTDATED_DEPENDENCIES_NUMBER }} -le 10 ]]; then
             echo "yellow"
+          else
+            echo "red"
           fi
-          echo 'hola: ${{ steps.ncu-output-packages-number.outputs.OUTDATED_DEPENDENCIES_NUMBER }}'          
         
       - name: Send notification
         uses: rtCamp/action-slack-notify@v2
