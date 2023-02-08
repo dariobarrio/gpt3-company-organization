@@ -1,7 +1,8 @@
 name: Check Outdated Dependencies
 
 on:
-  workflow_dispatch
+  schedule:
+    - cron:  '0 9 1,15 * *'
 
 jobs:
   check_updates:
