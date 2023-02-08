@@ -39,7 +39,11 @@ jobs:
           else
             echo "{color}={#E01E5A}" >> $GITHUB_OUTPUT
           fi
-        
+      
+      - name: test
+        run: |
+          echo ${{ steps.ncu-output-color.outputs.color }}
+      
       - name: Send notification
         uses: rtCamp/action-slack-notify@v2
         env:
@@ -51,5 +55,3 @@ jobs:
           MSG_MINIMAL: true
           SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
           SLACK_FOOTER: 'Powered by <https://theknotww.atlassian.net/wiki/spaces/PZ/pages/3697344976/Platform+Frontend|Platform Frontend> team with <https://www.youtube.com/watch?v=dQw4w9WgXcQ|:heart:>'
-        run: |
-          echo ${{ steps.ncu-output-color.outputs.color }}
