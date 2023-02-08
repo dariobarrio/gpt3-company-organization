@@ -39,11 +39,7 @@ jobs:
           else
             echo "color=#E01E5A" >> $GITHUB_OUTPUT
           fi
-      
-      - name: test
-        run: |
-          echo ${{ steps.ncu-output-color.outputs.color }}
-      
+            
       - name: Send notification
         uses: rtCamp/action-slack-notify@v2
         env:
